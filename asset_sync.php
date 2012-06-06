@@ -31,6 +31,7 @@ if (count($sourceNames) < 1) {
 }
 
 $sourceName = (isset($settings["default_source"]) ? $settings["default_source"] : $sourceNames[0]);
+$settings["default_source"] = $sourceName;
 $source = $sources[$sourceName];
 
 if (count($sourceNames) > 1) {
