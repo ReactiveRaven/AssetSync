@@ -35,7 +35,7 @@ $settings["default_source"] = $sourceName;
 $source = $sources[$sourceName];
 
 if (count($sourceNames) > 1) {
-  
+
   $response = null;
   while ($response === null) {
     echo "\n\n";
@@ -54,7 +54,7 @@ if (count($sourceNames) > 1) {
       $response = null;
     }
   }
-  
+
   $source = $sources[$sourceNames[((int)$response) - 1]];
   $sourceName = $sourceNames[((int)$response) - 1];
 }
@@ -70,32 +70,32 @@ foreach ($source as $folder => $rsync_source) {
   $result = null;
   $output = array();
   $output = $output;
-  
+
   $percent = floor($currentFolder++ / $totalFolders * 100);
-  
+
   $currentFolderString = $currentFolder;
   while (strlen($currentFolderString) < strlen($totalFolders)) {
     $currentFolderString = "0" . $currentFolderString;
   }
-  
+
   echo "  [" . ($percent < 10 ? "0" : "") . $percent . "] " . $currentFolderString . "/" . $totalFolders . " Pulling from " . $sourceName . " into \"" . $folder . "\"... ";
-  
+
   $excludes = "";
   if (isset($settings["exclude"])) {
     foreach ($settings["exclude"] as $excl) {
       $excludes .= "--exclude=\"" . $excl . "\" ";
-    } 
+    }
   }
   
   $cmd = "rsync -avz " . $excludes . "\"" . $rsync_source . "\" \"" . $folder . "\"";
   
   exec($cmd, $output, $result);
-  
+
   if ($result) {
     echo $output;
     die("\n\n  [!!] Rsync threw an error on directory '" . $folder . "' when pulling from '" . $rsync_source . "'\n\n");
   }
-  else 
+  else
   {
     echo "OK\n";
   }
