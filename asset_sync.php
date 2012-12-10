@@ -86,9 +86,9 @@ foreach ($source as $folder => $rsync_source) {
       $excludes .= "--exclude=\"" . $excl . "\" ";
     }
   }
-  
-  $cmd = "rsync -avz " . $excludes . "\"" . $rsync_source . "\" \"" . $folder . "\"";
-  
+
+  $cmd = "rsync -avz --delete " . $excludes . "\"" . $rsync_source . "\" \"" . $folder . "\"";
+
   exec($cmd, $output, $result);
 
   if ($result) {
